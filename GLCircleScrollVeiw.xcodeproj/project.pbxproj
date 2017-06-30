@@ -12,10 +12,10 @@
 		548AFBA41B46700F0047EC41 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 548AFBA21B46700F0047EC41 /* LaunchScreen.xib */; };
 		548AFBB01B46700F0047EC41 /* GLCircleScrollVeiwTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548AFBAF1B46700F0047EC41 /* GLCircleScrollVeiwTests.swift */; };
 		548AFBBA1B4670F70047EC41 /* FirstVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548AFBB91B4670F70047EC41 /* FirstVC.swift */; };
-		548AFBBE1B4672D50047EC41 /* CirCleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548AFBBD1B4672D50047EC41 /* CirCleView.swift */; };
 		548AFBC61B4682800047EC41 /* third.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 548AFBC31B4682800047EC41 /* third.jpg */; };
 		548AFBC71B4682800047EC41 /* second.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 548AFBC41B4682800047EC41 /* second.jpg */; };
 		548AFBC81B4682800047EC41 /* first.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 548AFBC51B4682800047EC41 /* first.jpg */; };
+		B2E223361F06582A00430BD6 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E223351F06582A00430BD6 /* CircleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,10 +38,10 @@
 		548AFBAE1B46700F0047EC41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		548AFBAF1B46700F0047EC41 /* GLCircleScrollVeiwTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLCircleScrollVeiwTests.swift; sourceTree = "<group>"; };
 		548AFBB91B4670F70047EC41 /* FirstVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstVC.swift; sourceTree = "<group>"; };
-		548AFBBD1B4672D50047EC41 /* CirCleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CirCleView.swift; sourceTree = "<group>"; };
 		548AFBC31B4682800047EC41 /* third.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = third.jpg; sourceTree = "<group>"; };
 		548AFBC41B4682800047EC41 /* second.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = second.jpg; sourceTree = "<group>"; };
 		548AFBC51B4682800047EC41 /* first.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = first.jpg; sourceTree = "<group>"; };
+		B2E223351F06582A00430BD6 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +88,7 @@
 				548AFBC51B4682800047EC41 /* first.jpg */,
 				548AFB991B46700F0047EC41 /* AppDelegate.swift */,
 				548AFBB91B4670F70047EC41 /* FirstVC.swift */,
-				548AFBBD1B4672D50047EC41 /* CirCleView.swift */,
+				B2E223351F06582A00430BD6 /* CircleView.swift */,
 				548AFBA01B46700F0047EC41 /* Images.xcassets */,
 				548AFBA21B46700F0047EC41 /* LaunchScreen.xib */,
 				548AFB971B46700F0047EC41 /* Supporting Files */,
@@ -229,9 +229,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2E223361F06582A00430BD6 /* CircleView.swift in Sources */,
 				548AFB9A1B46700F0047EC41 /* AppDelegate.swift in Sources */,
 				548AFBBA1B4670F70047EC41 /* FirstVC.swift in Sources */,
-				548AFBBE1B4672D50047EC41 /* CirCleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
