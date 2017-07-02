@@ -16,6 +16,7 @@
 		548AFBC71B4682800047EC41 /* second.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 548AFBC41B4682800047EC41 /* second.jpg */; };
 		548AFBC81B4682800047EC41 /* first.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 548AFBC51B4682800047EC41 /* first.jpg */; };
 		B2E223361F06582A00430BD6 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E223351F06582A00430BD6 /* CircleView.swift */; };
+		BBB704281F06A15700298A2A /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB704271F06A15700298A2A /* SecondVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		548AFBC41B4682800047EC41 /* second.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = second.jpg; sourceTree = "<group>"; };
 		548AFBC51B4682800047EC41 /* first.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = first.jpg; sourceTree = "<group>"; };
 		B2E223351F06582A00430BD6 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		BBB704271F06A15700298A2A /* SecondVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				548AFBC51B4682800047EC41 /* first.jpg */,
 				548AFB991B46700F0047EC41 /* AppDelegate.swift */,
 				548AFBB91B4670F70047EC41 /* FirstVC.swift */,
+				BBB704271F06A15700298A2A /* SecondVC.swift */,
 				B2E223351F06582A00430BD6 /* CircleView.swift */,
 				548AFBA01B46700F0047EC41 /* Images.xcassets */,
 				548AFBA21B46700F0047EC41 /* LaunchScreen.xib */,
@@ -231,6 +234,7 @@
 			files = (
 				B2E223361F06582A00430BD6 /* CircleView.swift in Sources */,
 				548AFB9A1B46700F0047EC41 /* AppDelegate.swift in Sources */,
+				BBB704281F06A15700298A2A /* SecondVC.swift in Sources */,
 				548AFBBA1B4670F70047EC41 /* FirstVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,7 +14,7 @@ enum IndicatorPostion {
 
 class CircleView: UIView, UIScrollViewDelegate {
     //MARK:- Property
-    lazy var contentScrollView: UIScrollView = {
+    private lazy var contentScrollView: UIScrollView = {
         let contentScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         contentScrollView.contentSize = CGSize(width: self.frame.size.width * 3, height: 0)
         contentScrollView.delegate = self
@@ -28,8 +28,17 @@ class CircleView: UIView, UIScrollViewDelegate {
         return contentScrollView
     }()
     
+    private var getImageCount: Int {
+        get {
+            if let _imageArray = _imageArray {
+                return _imageArray.count
+            } else {
+                return 0
+            }
+        }
+    }
     
-    var _imageArray: [UIImage]?
+    private var _imageArray: [UIImage]?
     fileprivate var imageArray: [UIImage]? {
         get {
             if let _imageArray = _imageArray {
@@ -50,7 +59,7 @@ class CircleView: UIView, UIScrollViewDelegate {
         }
     }
     
-    var _imageUrlArray: [String]?
+    private var _imageUrlArray: [String]?
     var imageUrlArray: [String]? {
         get {
             return _imageUrlArray
@@ -59,7 +68,7 @@ class CircleView: UIView, UIScrollViewDelegate {
         set(newValue) {
             _imageUrlArray = newValue
             
-            if (_imageArray != nil) && (_imageArray?.count)! > 0 {
+            if (_imageArray != nil) && getImageCount > 0 {
                 _imageArray?.removeAll()
             }
             indexOfCurrentImage = 0
@@ -91,16 +100,16 @@ class CircleView: UIView, UIScrollViewDelegate {
         }
     }
 
-    var delegate: CircleViewDelegate?
+    weak var delegate: CircleViewDelegate?
     
-    var indexOfCurrentImage: Int!  {                // 当前显示的第几张图片
+    fileprivate var indexOfCurrentImage: Int!  {                // 当前显示的第几张图片
         //监听显示的第几张图片，来更新分页指示器
         didSet {
             pageIndicator.currentPage = indexOfCurrentImage
         }
     }
     
-    lazy var currentImageView: UIImageView = {
+    private lazy var currentImageView: UIImageView = {
         let currentImageView = UIImageView()
         currentImageView.frame = CGRect(x: self.frame.size.width, y: 0, width: self.frame.size.width, height: 200)
         currentImageView.isUserInteractionEnabled = true
@@ -110,7 +119,7 @@ class CircleView: UIView, UIScrollViewDelegate {
         return currentImageView
     }()
     
-    lazy var lastImageView: UIImageView = {
+    private lazy var lastImageView: UIImageView = {
         let lastImageView = UIImageView()
         lastImageView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: 200)
         lastImageView.contentMode = UIViewContentMode.scaleAspectFill
@@ -119,7 +128,7 @@ class CircleView: UIView, UIScrollViewDelegate {
         return lastImageView
     }()
 
-    lazy var nextImageView: UIImageView = {
+    private lazy var nextImageView: UIImageView = {
         let nextImageView = UIImageView()
         nextImageView.frame = CGRect(x: self.frame.size.width * 2, y: 0, width: self.frame.size.width, height: 200)
         nextImageView.contentMode = UIViewContentMode.scaleAspectFill
@@ -130,7 +139,7 @@ class CircleView: UIView, UIScrollViewDelegate {
 
 
     /// 页数指示器
-    var _pageIndicator: UIPageControl?
+    private var _pageIndicator: UIPageControl?
     var pageIndicator: UIPageControl {
         get {
             if _pageIndicator == nil {
@@ -161,26 +170,23 @@ class CircleView: UIView, UIScrollViewDelegate {
     }
     
     /// 页面指示器显示位置
-    public var pageIndicatorPostion: IndicatorPostion = .center
+    var pageIndicatorPostion: IndicatorPostion = .center
     
     /// 页面指示器当前页颜色
-    public var currentPageIndicatorColor: UIColor? = UIColor(white: 0.9, alpha: 0.6)
+    var currentPageIndicatorColor: UIColor? = UIColor(white: 0.9, alpha: 0.6)
     
     /// 页面指示器颜色
-    public var pageIndicatorColor: UIColor? = UIColor(white: 0.4, alpha: 0.4)
+    var pageIndicatorColor: UIColor? = UIColor(white: 0.4, alpha: 0.4)
     
     
     
     //计时器
-    var _timer: Timer?
-    var timer: Timer? {
+    private var _timer: Timer?
+    fileprivate var timer: Timer? {
         get {
             if _timer == nil {
-//                _timer = Timer(timeInterval: TimeInterval, target: self, selector: #selector(CirCleView.timerAction), userInfo: nil, repeats: true)
-//                RunLoop.current.add(_timer!, forMode: .commonModes)
-                
-                _timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(CircleView.timerAction), userInfo: nil, repeats: true)
-//                _timer?.fire()
+
+                _timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
             }
             return _timer
         }
@@ -192,7 +198,7 @@ class CircleView: UIView, UIScrollViewDelegate {
     
     // 轮播时间间隔
     private var _timeInterval: Double = 2.5
-    public var timeInterval: Double {
+    var timeInterval: Double {
         get {
             return _timeInterval
         }
@@ -203,6 +209,9 @@ class CircleView: UIView, UIScrollViewDelegate {
             startAnimation()
         }
     }
+    
+//    var initialPos = CGPoint.zero
+//    var dragPos = CGPoint.zero
     
     
     
@@ -215,15 +224,6 @@ class CircleView: UIView, UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    convenience init(frame: CGRect, imageArray: [UIImage?]?) {
-//        self.init(frame: frame)
-//        self.imageArray = imageArray
-//
-//        // 默认显示第一张图片
-//        self.indexOfCurrentImage = 0
-//        self.setUpCircleView()
-//    }
-    
     convenience init(frame: CGRect, imageUrlArray: [String]?) {
         self.init(frame: frame)
 
@@ -235,6 +235,7 @@ class CircleView: UIView, UIScrollViewDelegate {
     }
     
     deinit {
+        print("deinit: \(#file)  \(#function)")
         stopAnimation()
     }
     
@@ -247,17 +248,24 @@ class CircleView: UIView, UIScrollViewDelegate {
         contentScrollView.addSubview(nextImageView)
         self.addSubview(pageIndicator)
         
-        //添加点击事件
+        // 添加点击事件
         let imageTap = UITapGestureRecognizer(target: self, action: #selector(CircleView.imageTapAction(_:)))
         currentImageView.addGestureRecognizer(imageTap)
+//        imageTap.delegate = self
+        
+        
+        // 长按手势，停止计时器
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(CircleView.imageLongPressAction(_:)))
+//        longPress.delegate = self
+//        currentImageView.addGestureRecognizer(longPress)
         
         self.setScrollViewOfImage()
         contentScrollView.setContentOffset(CGPoint(x: self.frame.size.width, y: 0), animated: false)
     }
     
-    func setScrollViewOfImage(){
+    fileprivate func setScrollViewOfImage(){
         
-        if _imageArray?.count == 1  {
+        if getImageCount == 1  {
             if let timer = timer, timer.isValid {
                 contentScrollView.isScrollEnabled = false
                 stopAnimation()
@@ -299,21 +307,41 @@ class CircleView: UIView, UIScrollViewDelegate {
     fileprivate func getNextImageIndex(indexOfCurrentImage index: Int) -> Int
     {
         let tempIndex = index + 1
-        return tempIndex < (_imageArray?.count)! ? tempIndex : 0
+        return tempIndex < getImageCount ? tempIndex : 0
     }
     
     //事件触发方法
-    func timerAction() {
+    @objc private func timerAction() {
 //        print("timer", terminator: "")
         contentScrollView.setContentOffset(CGPoint(x: self.frame.size.width*2, y: 0), animated: true)
 //        print(contentScrollView.contentOffset)
+    }
+    
+    @objc fileprivate func imageTapAction(_ tap: UITapGestureRecognizer){
+        self.delegate?.clickCurrentImage!(indexOfCurrentImage)
+    }
+    
+    @objc fileprivate func imageLongPressAction(_ longPress: UILongPressGestureRecognizer) {
+        if longPress.state == .began {
+//            initialPos = longPress.location(in: contentScrollView)
+            stopAnimation()
+        }
+//        else if longPress.state == .changed {
+//            let loc = longPress.location(in: contentScrollView)
+//            let newPos = CGPoint(x: initialPos.x - loc.x + dragPos.x, y: 0.0)
+//            dragPos = newPos
+//            contentScrollView.contentOffset = newPos
+//        }
+        else if longPress.state == .ended {
+            startAnimation()
+        }
     }
 }
 
 
 // MARK: - Public Method
 extension CircleView {
-    public func startAnimation() {
+    func startAnimation() {
         if timer == nil {
             startAnimation()
         } else if !(timer?.isValid)! {
@@ -322,16 +350,11 @@ extension CircleView {
         }
     }
     
-    public func stopAnimation() {
+    func stopAnimation() {
         if timer != nil {
             timer?.invalidate()
             timer = nil
         }
-    }
-    
-    
-    func imageTapAction(_ tap: UITapGestureRecognizer){
-        self.delegate?.clickCurrentImage!(indexOfCurrentImage)
     }
 }
 
@@ -339,11 +362,11 @@ extension CircleView {
 
 //MARK:  - UIScrollViewDelegate
 extension CircleView {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    internal func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         stopAnimation()
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         //如果用户手动拖动到了一个整数页的位置就不会发生滑动了 所以需要判断手动调用滑动停止滑动方法
         if !decelerate {
@@ -351,7 +374,7 @@ extension CircleView {
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    internal func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         let offset = scrollView.contentOffset.x
         if offset == 0 {
@@ -371,11 +394,23 @@ extension CircleView {
     }
     
     //时间触发器 设置滑动时动画true，会触发的方法
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        //        print("animator", terminator: "")
-        self.scrollViewDidEndDecelerating(contentScrollView)
+    internal func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        self.scrollViewDidEndDecelerating(scrollView)
     }
 }
+
+
+
+//// MARK: - UIGestureRecognizerDelegate
+//extension CircleView: UIGestureRecognizerDelegate {
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if otherGestureRecognizer is UIPanGestureRecognizer {
+//            return true
+//        }
+//        return false
+//    }
+//}
+
 
 
 // MARK:- Protocol Methods
