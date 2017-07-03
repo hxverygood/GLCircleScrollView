@@ -7,20 +7,64 @@
 //
 
 import UIKit
+import Kingfisher
+
+
+typealias DownloadProgressBlock = ((_ currentImageIndex: Int, _ receivedSize: Int64, _ totalSize: Int64) -> ())
+
+typealias CompletionHandler = ((_ currentImageIndex: Int, _ image: Image?, _ error: NSError?, _ cacheType: CacheType, _ imageURL: URL?) -> ())
+
+typealias ClickBlock = ((_ currentIndex: Int, _ imageURLString: String?) -> ())
+
+
 
 enum IndicatorPostion {
     case left, center, right
 }
 
+
+
 class CircleView: UIView, UIScrollViewDelegate {
+    
+    // MARK: - Internal Property
+    /// 下载指示器类型，默认为.none：不显示
+    var indicatorType: IndicatorType = .none
+    /// 下载进度Block
+    var downloadProgressBlock: DownloadProgressBlock? = nil
+    /// 下载完成Block
+    var completionHandler: CompletionHandler? = nil
+    /// 是否不缓存图片
+    var noCache: Bool = false
+    
+    /// 缓存周期(秒) - 私有
+    private var _cachePeriod: TimeInterval = -1.0
+    /// 缓存周期(秒)
+    var cachePeriod: TimeInterval {
+        get {
+            return _cachePeriod
+        }
+        
+        set {
+            _cachePeriod = newValue
+            let cache = KingfisherManager.shared.cache
+            cache.maxCachePeriodInSecond = newValue
+        }
+    }
+    
+    /// 占位图名称
+    var placeHolderImageName: String? = nil
+    /// 点击图片的Block
+    var clickBlock: ClickBlock? = nil
+    
     //MARK:- Property
+    
     private lazy var contentScrollView: UIScrollView = {
         let contentScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         contentScrollView.contentSize = CGSize(width: self.frame.size.width * 3, height: 0)
         contentScrollView.delegate = self
         contentScrollView.bounces = false
         contentScrollView.isPagingEnabled = true
-        contentScrollView.backgroundColor = .green
+        contentScrollView.backgroundColor = .white
         contentScrollView.showsHorizontalScrollIndicator = false
         contentScrollView.isScrollEnabled = ((self.imageUrlArray?.count)! <= 1)
         self.addSubview(contentScrollView)
@@ -30,36 +74,36 @@ class CircleView: UIView, UIScrollViewDelegate {
     
     private var getImageCount: Int {
         get {
-            if let _imageArray = _imageArray {
-                return _imageArray.count
+            if let _imageUrlArray = _imageUrlArray {
+                return _imageUrlArray.count
             } else {
                 return 0
             }
         }
     }
     
-    private var _imageArray: [UIImage]?
-    fileprivate var imageArray: [UIImage]? {
-        get {
-            if let _imageArray = _imageArray {
-                return _imageArray
-            } else {
-                return []
-            }
-        }
-        
-        set(newValue) {
-            _imageArray = newValue
-            contentScrollView.isScrollEnabled = !(newValue?.count == 1)
-            pageIndicator.numberOfPages = (newValue?.count)!
-            
-            if (newValue?.count)! > 1 {
-                self.setScrollViewOfImage()
-            }
-        }
-    }
+//    private var _imageArray: [UIImage]?
+//    fileprivate var imageArray: [UIImage]? {
+//        get {
+//            if let _imageArray = _imageArray {
+//                return _imageArray
+//            } else {
+//                return []
+//            }
+//        }
+//        
+//        set(newValue) {
+//            _imageArray = newValue
+//            contentScrollView.isScrollEnabled = !(newValue?.count == 1)
+//            pageIndicator.numberOfPages = (newValue?.count)!
+//            
+//            if (newValue?.count)! > 1 {
+//                self.setScrollViewOfImage()
+//            }
+//        }
+//    }
     
-    private var _imageUrlArray: [String]?
+    fileprivate var _imageUrlArray: [String]?
     var imageUrlArray: [String]? {
         get {
             return _imageUrlArray
@@ -68,41 +112,48 @@ class CircleView: UIView, UIScrollViewDelegate {
         set(newValue) {
             _imageUrlArray = newValue
             
-            if (_imageArray != nil) && getImageCount > 0 {
-                _imageArray?.removeAll()
-            }
+//            if (_imageArray != nil) && getImageCount > 0 {
+//                _imageArray?.removeAll()
+//            }
             indexOfCurrentImage = 0
             
-            var tmpImageArray: [UIImage] = []
+//            var tmpImageArray: [UIImage] = []
+//            
+//            //这里用了强制拆包，所以不要把urlImageArray设为nil
+//            for urlStr in newValue! {
+//                let dataImage: Data?
+//                let tempImage: UIImage?
+//                if urlStr.hasPrefix("http://") {
+//                    let urlImage = URL(string: urlStr)
+//                    if urlImage == nil { break }
+//                    dataImage = try? Data(contentsOf: urlImage!)
+//                    if dataImage == nil { break }
+//                    tempImage = UIImage(data: dataImage!)
+//                } else {
+//                    tempImage = UIImage(named: urlStr)
+//                }
+//                
+//                if let tempImage = tempImage {
+//                    tmpImageArray.append(tempImage)
+//                } else {
+//                    continue
+//                }
+//            }
+//            
+//            imageArray? = tmpImageArray
             
-            //这里用了强制拆包，所以不要把urlImageArray设为nil
-            for urlStr in newValue! {
-                let dataImage: Data?
-                let tempImage: UIImage?
-                if urlStr.hasPrefix("http://") {
-                    let urlImage = URL(string: urlStr)
-                    if urlImage == nil { break }
-                    dataImage = try? Data(contentsOf: urlImage!)
-                    if dataImage == nil { break }
-                    tempImage = UIImage(data: dataImage!)
-                } else {
-                    tempImage = UIImage(named: urlStr)
-                }
-                
-                if let tempImage = tempImage {
-                    tmpImageArray.append(tempImage)
-                } else {
-                    continue
-                }
+            contentScrollView.isScrollEnabled = !(newValue?.count == 1)
+            pageIndicator.numberOfPages = (newValue?.count)!
+            
+            if (newValue?.count)! > 1 {
+                self.setScrollViewOfImage()
             }
-            
-            imageArray? = tmpImageArray
         }
     }
 
     weak var delegate: CircleViewDelegate?
     
-    fileprivate var indexOfCurrentImage: Int!  {                // 当前显示的第几张图片
+    fileprivate var indexOfCurrentImage: Int = 0  {                // 当前显示的第几张图片
         //监听显示的第几张图片，来更新分页指示器
         didSet {
             pageIndicator.currentPage = indexOfCurrentImage
@@ -224,24 +275,45 @@ class CircleView: UIView, UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(frame: CGRect, imageUrlArray: [String]?) {
+    convenience init(frame: CGRect, imageUrlArray: [String]?, placeHolderImageName: String?) {
         self.init(frame: frame)
 
+        // 配置Kingfisher图片保存时间为1周
+        let cache = KingfisherManager.shared.cache
+        cache.maxCachePeriodInSecond = 60 * 60 * 24 * 7
+        
         self.imageUrlArray = imageUrlArray
+        self.placeHolderImageName = placeHolderImageName
         
         // 默认显示第一张图片
         self.indexOfCurrentImage = 0
         self.setUpCircleView()
     }
     
-    deinit {
-        print("deinit: \(#file)  \(#function)")
-        stopAnimation()
+    
+    
+    // MARK: - Life Cycle
+    /// 可用来获取UIView的生命周期，确定UIView是否从superView中移除
+    /// 如果被移除，则停止计时器，并做一些收尾工作
+    override func willMove(toSuperview newSuperview: UIView?) {
+        if newSuperview == nil {
+            print("deinit: \(#file)  \(#function)")
+            stopAnimation()
+            
+            let cache = KingfisherManager.shared.cache
+            if noCache || cachePeriod == 0.0 {
+                cache.clearDiskCache()//清除硬盘缓存
+                cache.clearMemoryCache()//清理网络缓存
+            } else if !noCache && cachePeriod > 0.0{
+                cache.cleanExpiredDiskCache()
+            }
+        }
     }
     
 
     
     //MARK:- Privite Methods
+
     fileprivate func setUpCircleView() {
         contentScrollView.addSubview(lastImageView)
         contentScrollView.addSubview(currentImageView)
@@ -270,19 +342,41 @@ class CircleView: UIView, UIScrollViewDelegate {
                 contentScrollView.isScrollEnabled = false
                 stopAnimation()
             }
-        } else {
-            // 设置计时器
-//            if let timer = timer, !timer.isValid, (_imageArray?.count)! > 1 {
-//                timer.fire()
-//            }
         }
         
-        if let _imageArray = _imageArray, _imageArray.count > 0 {
-            currentImageView.image = _imageArray[indexOfCurrentImage]
-            nextImageView.image = _imageArray[getNextImageIndex(indexOfCurrentImage: indexOfCurrentImage)]
-            lastImageView.image = _imageArray[getLastImageIndex(indexOfCurrentImage: indexOfCurrentImage)]
+        if let _imageUrlArray = _imageUrlArray, _imageUrlArray.count > 0 {
+            let placeholderImage: UIImage?
+            if let placeHolderImageName = placeHolderImageName {
+                placeholderImage = UIImage(named: placeHolderImageName)
+            } else {
+                placeholderImage = nil
+            }
             
-            if _imageArray.count > 1 {
+            currentImageView.kf.indicatorType = indicatorType
+            currentImageView.kf.setImage(with: URL(string: _imageUrlArray[indexOfCurrentImage]), placeholder: placeholderImage, options: [.transition(.fade(0.2))], progressBlock: {
+                [weak self] (_ receivedSize: Int64, _ totalSize: Int64) in
+                if let downloadProgressBlock = self?.downloadProgressBlock {
+                    downloadProgressBlock((self?.indexOfCurrentImage)!,  receivedSize, totalSize)
+                }
+            }, completionHandler: {
+                [weak self] (image, error, cacheType, imageUrl) in
+                
+                if let completionHandler = self?.completionHandler {
+                    completionHandler((self?.indexOfCurrentImage)!, image, error, cacheType, imageUrl)
+                }
+            })
+            
+            nextImageView.kf.indicatorType = indicatorType
+            nextImageView.kf.setImage(with: URL(string: _imageUrlArray[getNextImageIndex(indexOfCurrentImage: indexOfCurrentImage)]), placeholder: placeholderImage, options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+            
+            lastImageView.kf.indicatorType = indicatorType
+            lastImageView.kf.setImage(with: URL(string: _imageUrlArray[getLastImageIndex(indexOfCurrentImage: indexOfCurrentImage)]), placeholder: placeholderImage, options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+            
+//            currentImageView.image = _imageArray[indexOfCurrentImage]
+//            nextImageView.image = _imageArray[getNextImageIndex(indexOfCurrentImage: indexOfCurrentImage)]
+//            lastImageView.image = _imageArray[getLastImageIndex(indexOfCurrentImage: indexOfCurrentImage)]
+            
+            if _imageUrlArray.count > 1 {
                 startAnimation()
             }
         }
@@ -292,8 +386,8 @@ class CircleView: UIView, UIScrollViewDelegate {
     fileprivate func getLastImageIndex(indexOfCurrentImage index: Int) -> Int{
         let tempIndex = index - 1
         if tempIndex == -1 {
-            if let _imageArray = _imageArray {
-                return _imageArray.count - 1
+            if let _imageUrlArray = _imageUrlArray {
+                return _imageUrlArray.count - 1
             } else {
                 return 0
             }
@@ -318,24 +412,32 @@ class CircleView: UIView, UIScrollViewDelegate {
     }
     
     @objc fileprivate func imageTapAction(_ tap: UITapGestureRecognizer){
-        self.delegate?.clickCurrentImage!(indexOfCurrentImage)
+        if let delegate = delegate {
+            delegate.clickCurrentImage?(indexOfCurrentImage, imageUrlArray?[indexOfCurrentImage])
+            return
+        }
+        
+        if let clickBlock = clickBlock {
+            clickBlock(indexOfCurrentImage, imageUrlArray?[indexOfCurrentImage])
+            return
+        }
     }
     
-    @objc fileprivate func imageLongPressAction(_ longPress: UILongPressGestureRecognizer) {
-        if longPress.state == .began {
-//            initialPos = longPress.location(in: contentScrollView)
-            stopAnimation()
-        }
-//        else if longPress.state == .changed {
-//            let loc = longPress.location(in: contentScrollView)
-//            let newPos = CGPoint(x: initialPos.x - loc.x + dragPos.x, y: 0.0)
-//            dragPos = newPos
-//            contentScrollView.contentOffset = newPos
+//    @objc fileprivate func imageLongPressAction(_ longPress: UILongPressGestureRecognizer) {
+//        if longPress.state == .began {
+////            initialPos = longPress.location(in: contentScrollView)
+//            stopAnimation()
 //        }
-        else if longPress.state == .ended {
-            startAnimation()
-        }
-    }
+////        else if longPress.state == .changed {
+////            let loc = longPress.location(in: contentScrollView)
+////            let newPos = CGPoint(x: initialPos.x - loc.x + dragPos.x, y: 0.0)
+////            dragPos = newPos
+////            contentScrollView.contentOffset = newPos
+////        }
+//        else if longPress.state == .ended {
+//            startAnimation()
+//        }
+//    }
 }
 
 
@@ -388,7 +490,7 @@ extension CircleView {
         scrollView.setContentOffset(CGPoint(x: self.frame.size.width, y: 0), animated: false)
         
         // 当轮播图数量大于1时才启动定时器
-        if (self.imageArray?.count)! > 1 {
+        if (_imageUrlArray?.count)! > 1 {
             startAnimation()
         }
     }
@@ -420,7 +522,7 @@ extension CircleView {
     *  
     *  @para  currentIndxe 当前点击图片的下标
     */
-    @objc optional func clickCurrentImage(_ currentIndxe: Int)
+    @objc optional func clickCurrentImage(_ currentIndex: Int, _ imageUrl: String?)
 }
 
 

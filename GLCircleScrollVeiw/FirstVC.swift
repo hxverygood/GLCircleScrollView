@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FirstVC: UIViewController {
 
@@ -14,6 +15,14 @@ class FirstVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Circle"
+        
+        let url = URL(string: "http://desk.fd.zol-img.com.cn/t_s1280x800c5/g5/M00/07/0F/ChMkJljm_yuIYqSsABBV4J7WQmwAAbb9gCiLRcAEFX4103.jpg")
+        let imageView: UIImageView = UIImageView(frame: CGRect(x: 20.0, y: 64.0, width: UIScreen.main.bounds.size.width - 20.0*2, height: 140.0))
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: url, placeholder: UIImage(named:"first.jpg"), options: nil, progressBlock: nil, completionHandler: nil)
+        self.view.addSubview(imageView)
+        
+        
         
         let nextButton = UIButton(frame: CGRect(x: 0, y: 340, width: self.view.frame.size.width, height: 40))
         nextButton.backgroundColor = UIColor.red

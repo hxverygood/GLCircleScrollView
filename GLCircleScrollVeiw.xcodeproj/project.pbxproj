@@ -17,6 +17,8 @@
 		548AFBC81B4682800047EC41 /* first.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 548AFBC51B4682800047EC41 /* first.jpg */; };
 		B2E223361F06582A00430BD6 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E223351F06582A00430BD6 /* CircleView.swift */; };
 		BBB704281F06A15700298A2A /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB704271F06A15700298A2A /* SecondVC.swift */; };
+		F2D7CE20E0A957209AB64014 /* Pods_GLCircleScrollVeiw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95488C0B7103EABBBEB9C9DA /* Pods_GLCircleScrollVeiw.framework */; };
+		F8AEED3C1C0233702EC1D4E1 /* Pods_GLCircleScrollVeiwTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF64FEBFEF2033D78FE2A8C /* Pods_GLCircleScrollVeiwTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04F402F2B8732820A65430B7 /* Pods-GLCircleScrollVeiwTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLCircleScrollVeiwTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GLCircleScrollVeiwTests/Pods-GLCircleScrollVeiwTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1732C7D7E71361E1635C44AE /* Pods-GLCircleScrollVeiw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLCircleScrollVeiw.release.xcconfig"; path = "Pods/Target Support Files/Pods-GLCircleScrollVeiw/Pods-GLCircleScrollVeiw.release.xcconfig"; sourceTree = "<group>"; };
 		548AFB941B46700F0047EC41 /* GLCircleScrollVeiw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLCircleScrollVeiw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		548AFB981B46700F0047EC41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		548AFB991B46700F0047EC41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,8 +46,12 @@
 		548AFBC31B4682800047EC41 /* third.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = third.jpg; sourceTree = "<group>"; };
 		548AFBC41B4682800047EC41 /* second.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = second.jpg; sourceTree = "<group>"; };
 		548AFBC51B4682800047EC41 /* first.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = first.jpg; sourceTree = "<group>"; };
+		8BF64FEBFEF2033D78FE2A8C /* Pods_GLCircleScrollVeiwTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GLCircleScrollVeiwTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95488C0B7103EABBBEB9C9DA /* Pods_GLCircleScrollVeiw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GLCircleScrollVeiw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A78B38EF2D13EFC0AF9895D7 /* Pods-GLCircleScrollVeiw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLCircleScrollVeiw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GLCircleScrollVeiw/Pods-GLCircleScrollVeiw.debug.xcconfig"; sourceTree = "<group>"; };
 		B2E223351F06582A00430BD6 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		BBB704271F06A15700298A2A /* SecondVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
+		EEC1397838C2515C9A198B53 /* Pods-GLCircleScrollVeiwTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLCircleScrollVeiwTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GLCircleScrollVeiwTests/Pods-GLCircleScrollVeiwTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2D7CE20E0A957209AB64014 /* Pods_GLCircleScrollVeiw.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8AEED3C1C0233702EC1D4E1 /* Pods_GLCircleScrollVeiwTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +80,8 @@
 				548AFB961B46700F0047EC41 /* GLCircleScrollVeiw */,
 				548AFBAC1B46700F0047EC41 /* GLCircleScrollVeiwTests */,
 				548AFB951B46700F0047EC41 /* Products */,
+				AC34A8D2AE0F4AC976BF55C8 /* Pods */,
+				F9D69F6D2C42AC62C7D67BA1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,6 +136,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		AC34A8D2AE0F4AC976BF55C8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A78B38EF2D13EFC0AF9895D7 /* Pods-GLCircleScrollVeiw.debug.xcconfig */,
+				1732C7D7E71361E1635C44AE /* Pods-GLCircleScrollVeiw.release.xcconfig */,
+				04F402F2B8732820A65430B7 /* Pods-GLCircleScrollVeiwTests.debug.xcconfig */,
+				EEC1397838C2515C9A198B53 /* Pods-GLCircleScrollVeiwTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F9D69F6D2C42AC62C7D67BA1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				95488C0B7103EABBBEB9C9DA /* Pods_GLCircleScrollVeiw.framework */,
+				8BF64FEBFEF2033D78FE2A8C /* Pods_GLCircleScrollVeiwTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -131,9 +163,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 548AFBB31B46700F0047EC41 /* Build configuration list for PBXNativeTarget "GLCircleScrollVeiw" */;
 			buildPhases = (
+				98AB22E8066AC268403FF93E /* [CP] Check Pods Manifest.lock */,
 				548AFB901B46700F0047EC41 /* Sources */,
 				548AFB911B46700F0047EC41 /* Frameworks */,
 				548AFB921B46700F0047EC41 /* Resources */,
+				AC1D35C760BFFA93AC91ED0D /* [CP] Embed Pods Frameworks */,
+				A72657E0E4E4324369693EAC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -148,9 +183,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 548AFBB61B46700F0047EC41 /* Build configuration list for PBXNativeTarget "GLCircleScrollVeiwTests" */;
 			buildPhases = (
+				095E20DB7FE72DF320B7E73A /* [CP] Check Pods Manifest.lock */,
 				548AFBA51B46700F0047EC41 /* Sources */,
 				548AFBA61B46700F0047EC41 /* Frameworks */,
 				548AFBA71B46700F0047EC41 /* Resources */,
+				9CC0651640C74C07943EEEF7 /* [CP] Embed Pods Frameworks */,
+				EB987CC945270D4D87ED4F83 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -171,7 +209,7 @@
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0630;
-				ORGANIZATIONNAME = "___GL___";
+				ORGANIZATIONNAME = ___GL___;
 				TargetAttributes = {
 					548AFB931B46700F0047EC41 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -226,6 +264,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		095E20DB7FE72DF320B7E73A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		98AB22E8066AC268403FF93E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9CC0651640C74C07943EEEF7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GLCircleScrollVeiwTests/Pods-GLCircleScrollVeiwTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A72657E0E4E4324369693EAC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GLCircleScrollVeiw/Pods-GLCircleScrollVeiw-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC1D35C760BFFA93AC91ED0D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GLCircleScrollVeiw/Pods-GLCircleScrollVeiw-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB987CC945270D4D87ED4F83 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GLCircleScrollVeiwTests/Pods-GLCircleScrollVeiwTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		548AFB901B46700F0047EC41 /* Sources */ = {
@@ -354,6 +485,7 @@
 		};
 		548AFBB41B46700F0047EC41 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A78B38EF2D13EFC0AF9895D7 /* Pods-GLCircleScrollVeiw.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -369,6 +501,7 @@
 		};
 		548AFBB51B46700F0047EC41 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1732C7D7E71361E1635C44AE /* Pods-GLCircleScrollVeiw.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -384,6 +517,7 @@
 		};
 		548AFBB71B46700F0047EC41 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04F402F2B8732820A65430B7 /* Pods-GLCircleScrollVeiwTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -404,6 +538,7 @@
 		};
 		548AFBB81B46700F0047EC41 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEC1397838C2515C9A198B53 /* Pods-GLCircleScrollVeiwTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
