@@ -44,9 +44,9 @@ class SecondVC: UIViewController, CircleViewDelegate {
         circleView.noCache = true
         circleView.cachePeriod = 1.0
 //        circleView.delegate = self
-        circleView.downloadProgressBlock = { (currentImageIndex: Int, receivedSize: Int64, totalSize: Int64) -> () in
-            print("已下载图片\(currentImageIndex): \(Double(receivedSize)/Double(totalSize)*100)%")
-        }
+//        circleView.downloadProgressBlock = { (currentImageIndex: Int, receivedSize: Int64, totalSize: Int64) -> () in
+//            print("已下载图片\(currentImageIndex): \(Double(receivedSize)/Double(totalSize)*100)%")
+//        }
         circleView.completionHandler = { (currentImageIndex, image, error, cacheType, imageURL) -> () in
             if error == nil {
                 print("图片\(currentImageIndex)下载完成")
